@@ -1,0 +1,529 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdlib.h>
+void alter(char &chr);
+void hu();
+void pc();
+void prnt();
+void npc();
+int win();
+void reset();
+char p[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+void main()
+{
+    int c;
+    clrscr();
+    cout<<"TIC TAC TOE GAME\n";
+    cout<<"1. Play against human\n2. Play against PC\n3. Play against PC(Warning!! You'll never win)\nYour Choice : ";
+    cin>>c;
+    if(c == 1)
+        hu();
+    else if(c == 2)
+        npc();
+    else if(c == 3)
+        pc();
+}
+void hu()
+{
+    int pla = 1, no, w;
+    char ch = 'X';
+    do
+    {
+        if(pla > 2)
+            pla = 1;
+
+        if(pla == 1)
+            ch = 'X';
+        else if(pla == 2)
+            ch = 'O';
+    prnt();
+    cout<<"Player 1(X) and Player 2(O)\n";
+    cout<<"Player "<<pla<<"("<<ch<<") :";
+    cin>>no;
+    if(no == 1 && p[1] == '1')
+        p[1] = ch;
+    else if(no == 2 && p[2] == '2')
+        p[2] = ch;
+    else if(no == 3 && p[3] == '3')
+        p[3] = ch;
+    else if(no == 4 && p[4] == '4')
+        p[4] = ch;
+    else if(no == 5 && p[5] == '5')
+        p[5] = ch;
+    else if(no == 6 && p[6] == '6')
+        p[6] = ch;
+    else if(no == 7 && p[7] == '7')
+        p[7] = ch;
+    else if(no == 8 && p[8] == '8')
+        p[8] = ch;
+    else if(no == 9 && p[9] == '9')
+        p[9] = ch;
+    else
+        {
+        cout<<"Invalid Input";
+        pla--;
+        getch();
+        }
+    pla++;
+    w = win();
+    }
+    while(w == -1);
+    prnt();
+    if(w == 1)
+        cout<<"\n       Draw !!!!!";
+    else
+        cout<<"\nPlayer "<<--pla<<" wins";
+    getch();
+}
+void pc()
+{
+    char *lse = "You loose", *drw = "Draw!!!", *inv = "Invalid Input, Start Over", *trn = "Player (X) : ";
+    randomize();
+    int no;
+    char ch;
+    prnt();
+    cout<<trn;
+    cin>>no;
+    if(no == 1)
+        {
+            p[1] = 'X';
+            p[2] = 'O';
+            prnt();
+            cout<<trn;
+            cin>>no;
+            if(no == 3)
+            {
+                p[3] = 'X';
+                p[5] = 'O';
+                prnt();
+                cout<<trn;
+                cin>>no;
+                if(no == 4)
+                   {
+                       p[4] = 'X';
+                       p[8] = 'O';
+                       prnt();
+                       cout<<lse;
+                   }
+                else if(no == 6)
+                {
+                    p[6] = 'X';
+                    p[8] = 'O';
+                    prnt();
+                    cout<<lse;
+                }
+                else if(no == 7)
+                {
+                    p[7] = 'X';
+                    p[8] = 'O';
+                    prnt();
+                    cout<<lse;
+                }
+                else if(no == 9)
+                {
+                    p[9] = 'X';
+                    p[8] = 'O';
+                    prnt();
+                    cout<<lse;
+                }
+                else if(no == 8)
+                {
+                    p[8] = 'X';
+                    int s4 = random(4);
+                    if(s4 == 0)
+                        p[6] = 'O';
+                    else if(s4 == 1)
+                        p[4] = 'O';
+                    else if(s4 == 2)
+                        p[7] = 'O';
+                    else
+                        p[9] = 'O';
+
+                    prnt();
+                    if(p[6] == 'O')
+                    {
+                        cout<<trn;
+                        cin>>no;
+                        if(no == 4)
+                        {
+                            p[4] = 'X';
+                            p[7] = 'O';
+                            prnt();
+                            cout<<trn;
+                            cin>>no;
+                            if(no == 9)
+                            {
+                                p[9] = 'X';
+                                prnt();
+                                cout<<drw;
+                            }
+                            else
+                                cout<<inv;
+                        }
+                        else if(no == 7 || no == 9)
+                        {
+                            p[4] = 'O';
+                            p[no] = 'X';
+                            prnt();
+                            cout<<lse;
+                        }
+                        else
+                            cout<<inv;
+                    }
+                    else if(p[4] == 'O')
+                    {
+                        cout<<trn;
+                        cin>>no;
+                        if(no == 6)
+                        {
+                            p[6] = 'X';
+                            p[9] = 'O';
+                            prnt();
+                            cout<<trn;
+                            cin>>no;
+                            if(no == 7)
+                            {
+                                p[7] = 'X';
+                                prnt();
+                                cout<<drw;
+                            }
+                            else
+                                cout<<inv;
+                        }
+                        else if(no == 7 || no == 9)
+                        {
+                            p[4] = 'O';
+                            p[no] = 'X';
+                            prnt();
+                            cout<<lse;
+                        }
+                        else
+                            cout<<inv;
+
+                    }
+                    else if(p[7] == 'O')
+                    {
+                        cout<<trn;
+                        cin>>no;
+                        if(no == 4)
+                        {
+                            p[4] = 'X';
+                            int s2 = random(2);
+                            if(s2 == 0)
+                                p[6] = 'O';
+                            else
+                                p[9] = 'O';
+                            prnt();
+                            if(p[6] == 'O')
+                            {
+                                cout<<trn;
+                                cin>>no;
+                                if(no == 9)
+                                {
+                                    p[9] = 'X';
+                                    prnt();
+                                    cout<<drw;
+                                }
+                                else
+                                    cout<<inv;
+                            }
+                            else
+                            {
+                                cout<<trn;
+                                cin>>no;
+                                if(no == 6)
+                                {
+                                    p[6] = 'X';
+                                    prnt();
+                                    cout<<lse;
+                                }
+                                else
+                                    cout<<inv;
+                            }
+                        }
+                        else if(no == 6)
+                        {
+                            p[6] = 'X';
+                            p[9] = 'O';
+                            prnt();
+                            cout<<trn;
+                            cin>>no;
+                            if(no == 4)
+                            {
+                                p[4] = 'X';
+                                prnt();
+                                cout<<drw;
+                            }
+                            else
+                                cout<<inv;
+                        }
+                        else if(no == 9)
+                        {
+                            p[9] = 'X';
+                            p[6] = 'O';
+                            prnt();
+                            cout<<trn;
+                            cin>>no;
+                            if(no == 4)
+                            {
+                                p[4] = 'X';
+                                prnt();
+                                cout<<drw;
+                            }
+                            else
+                                cout<<inv;
+                        }
+                        else
+                            cout<<inv;
+                    }
+                    else
+                    {
+                        cout<<trn;
+                        cin>>no;
+                        if(no == 4)
+                        {
+                            p[4] = 'X';
+                            p[7] = 'O';
+                            prnt();
+                            cout<<trn;
+                            cin>>no;
+                            if(no == 6)
+                            {
+                                p[6] = 'X';
+                                prnt();
+                                cout<<drw;
+                            }
+                            else
+                                cout<<inv;
+                        }
+                        else if(no == 6)
+                        {
+                            p[6] = 'X';
+                            int a2 = random(2);
+                            if(a2 == 0)
+                                p[4] = 'O';
+                            else
+                                p[7] = 'O';
+                            prnt();
+                            if(p[4] == 'O')
+                            {
+                                cout<<trn;
+                                cin>>no;
+                                if(no == 7)
+                                {
+                                    p[7] = 'X';
+                                    prnt();
+                                    cout<<drw;
+                                }
+                                else
+                                    cout<<inv;
+                            }
+                            else
+                            {
+                                cout<<trn;
+                                cin>>no;
+                                if(no == 4)
+                                {
+                                    p[4] = 'X';
+                                    prnt();
+                                    cout<<drw;
+                                }
+                                else
+                                    cout<<inv;
+                            }
+                        }
+                        else if(no == 7)
+                        {
+                            //continue from here  XOX;_O_;XXO
+                        }
+                        else
+                            cout<<inv;
+                    }
+                }
+                else
+                    cout<<inv;
+            }
+            else
+                cout<<inv;
+        }
+    else if(no == 2 && p[2] == '2')
+        p[2] = ch;
+    else if(no == 3 && p[3] == '3')
+        p[3] = ch;
+    else if(no == 4 && p[4] == '4')
+        p[4] = ch;
+    else if(no == 5 && p[5] == '5')
+        p[5] = ch;
+    else if(no == 6 && p[6] == '6')
+        p[6] = ch;
+    else if(no == 7 && p[7] == '7')
+        p[7] = ch;
+    else if(no == 8 && p[8] == '8')
+        p[8] = ch;
+    else if(no == 9 && p[9] == '9')
+        p[9] = ch;
+    else
+        {
+        cout<<"Invalid Input";
+        getch();
+        }
+        getch();
+}
+void prnt()
+{
+    clrscr();
+    cout<<"   TIC TAC TOE Game\n\n";
+    cout<<"       |       |       \n";
+    cout<<"   "<<p[1]<<"   |   "<<p[2]<<"   |   "<<p[3]<<"\n";
+    cout<<" _____ | _____ | _____ \n";
+    cout<<"       |       |       \n";
+    cout<<"   "<<p[4]<<"   |   "<<p[5]<<"   |   "<<p[6]<<"\n";
+    cout<<" _____ | _____ | _____ \n";
+    cout<<"       |       |       \n";
+    cout<<"   "<<p[7]<<"   |   "<<p[8]<<"   |   "<<p[9]<<"\n";
+    cout<<"       |       |       \n";
+}
+int win()
+{
+    if(p[1] == p[2] && p[2] == p[3])
+        return 0;
+    else if(p[4] == p[5] && p[5] == p[6])
+        return 0;
+    else if(p[7] == p[8] && p[8] == p[9])
+        return 0;
+    else if(p[1] == p[4] && p[4] == p[7])
+        return 0;
+    else if(p[2] == p[5] && p[5] == p[8])
+        return 0;
+    else if(p[3] == p[6] && p[6] == p[9])
+        return 0;
+    else if(p[1] == p[5] && p[5] == p[9])
+        return 0;
+    else if(p[3] == p[5] && p[5] == p[7])
+        return 0;
+    else if(p[1] != '1' && p[2] != '2' && p[3] != '3' && p[4] != '4' && p[5] != '5' && p[6] != '6' && p[7] != '7' && p[8] != '8' && p[9] != '9')
+        return 1;//tie
+    else
+        return -1;//in progress
+}
+void npc()
+{
+    randomize();
+    int trn = 1, pla;
+    char usr = 'Y';
+    char *naam;
+        cout<<"Enter your name : ";
+        cin>>naam;
+    do
+    {
+        clrscr();
+        reset();
+        prnt();
+        char ch = 'X';
+        if(trn%2)//odd
+            pla = 1;
+        else
+            pla = 2;
+
+            int no, w;
+            do
+            {
+                prnt();
+                if(pla%2)
+                {
+                    cout<<naam<<"("<<ch<<")"<<" :";
+                    cin>>no;
+                }
+                else
+                {
+                    no = (random(9) + 1);
+                }
+                if(no == 1 && p[1] == '1')
+                    p[1] = ch;
+                else if(no == 2 && p[2] == '2')
+                    p[2] = ch;
+                else if(no == 3 && p[3] == '3')
+                    p[3] = ch;
+                else if(no == 4 && p[4] == '4')
+                    p[4] = ch;
+                else if(no == 5 && p[5] == '5')
+                    p[5] = ch;
+                else if(no == 6 && p[6] == '6')
+                    p[6] = ch;
+                else if(no == 7 && p[7] == '7')
+                    p[7] = ch;
+                else if(no == 8 && p[8] == '8')
+                    p[8] = ch;
+                else if(no == 9 && p[9] == '9')
+                    p[9] = ch;
+                else
+                {
+                    if(trn%2)
+                    {
+                        if(ch == 'X')
+                        {
+                            cout<<"Invalid Input";
+                            getch();
+                        }
+                    }
+                    else
+                    {
+                        if(ch == 'O')
+                        {
+                            cout<<"Invalid Input";
+                            getch();
+                        }
+                    }
+                    pla--;
+                    alter(ch);
+                }
+            pla++;
+            alter(ch);
+            w = win();
+            }
+            while(w == -1);
+            prnt();
+            if(w == 1)
+                cout<<"\n       Draw !!!!!";
+            else
+            {
+                pla--;
+                    if(pla%2)
+                        cout<<"You win !!!";
+                    else
+                        cout<<"You loose !!!";
+
+            }
+            getch();
+
+        trn++;
+        int inv = 1;
+        do
+        {
+            cout<<"\nDo you want to Play Again (Y/N) : ";
+            cin>>usr;
+            if(usr == 'Y' || usr == 'y' || usr == 'N' || usr == 'n')
+                inv = 0;
+            else
+            {
+                clrscr();
+                cout<<"Invalid Input";
+            }
+        }
+        while(inv);
+
+    }
+    while(usr == 'Y' || usr == 'y');
+}
+void reset()
+{
+    for(int i = 0, j = 48; i<10; i++, j++)
+        p[i] = j;
+}
+void alter(char &chr)
+    {
+        if(chr == 'X')
+            chr = 'O';
+        else if(chr == 'O')
+            chr = 'X';
+    }
